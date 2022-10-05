@@ -1,0 +1,19 @@
+name: Game
+version: '${project.version}'
+main: net.theiceninja.game.Main
+api-version: 1.17
+authors: [ TheIceNinja ]
+description: simple minigame tutorial for github
+website: github.com/theiceninja
+commands:
+  startgame:
+    description: starts the game
+    usage: /<command>
+    aliases:
+      - start
+      - startg
+  stopgame:
+    description: ends the game
+    usage: /<command>
+    aliases:
+      - stopg
