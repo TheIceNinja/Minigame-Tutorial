@@ -80,18 +80,7 @@ public class Events implements Listener {
             if (gameManager.getAlivePlayers().isEmpty()) {
                 gameManager.setGameState(GameState.OFFLINE);
             }
-
                 gameManager.addSpectatorPlayers(p);
-            /*
-                        if (gameManager.getAlivePlayers().size() <= 1) {
-                for (UUID playerUUID : gameManager.getAlivePlayers()) {
-                    @Nullable Player player = Bukkit.getPlayer(playerUUID);
-                    if (player == null) continue;
-                    gameManager.sendGameMessage("&cThe winner is " + Objects.requireNonNull(player).getDisplayName());
-                    gameManager.setGameState(GameState.OFFLINE);
-                }
-            }
-             */
 
         }
     }
@@ -114,21 +103,6 @@ public class Events implements Listener {
         Player p = event.getPlayer();
         if (gameManager.getGameState() == GameState.ACTIVE) {
                 gameManager.addSpectatorPlayers(event.getPlayer());
-            /*
-                        if (gameManager.getAlivePlayers().size() <= 1 && killer != null) {
-                gameManager.sendGameMessage("&cThe winner is " + killer.getDisplayName());
-                gameManager.setGameState(GameState.OFFLINE);
-            } else if (gameManager.getAlivePlayers().size() <= 1 && killer == null) {
-                for (UUID playerUUID : gameManager.getAlivePlayers()) {
-                    @Nullable Player player = Bukkit.getPlayer(playerUUID);
-                    if (player == null) return;
-                    gameManager.sendGameMessage("&cThe winner is " + Objects.requireNonNull(player).getDisplayName());
-                    gameManager.setGameState(GameState.OFFLINE);
-                }
-            } else if (gameManager.getAlivePlayers().isEmpty()) {
-                gameManager.setGameState(GameState.OFFLINE);
-            }
-             */
             event.setDeathMessage(ColorUtils.color("&c" + p.getDisplayName() + " died!"));
             event.setDeathSound(Sound.ENTITY_LIGHTNING_BOLT_THUNDER);
         }
