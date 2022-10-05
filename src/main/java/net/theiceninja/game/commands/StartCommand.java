@@ -36,7 +36,7 @@ public class StartCommand implements CommandExecutor {
            return true;
        }
        if (Bukkit.getOnlinePlayers().size() <= 1) {
-           player.sendMessage(ColorUtils.color("&cYou cant start the game while there is only " + Bukkit.getOnlinePlayers().size() + " on the server."));
+           player.sendMessage(ColorUtils.color("&cYou cant start the game while there is only " + Bukkit.getOnlinePlayers().size() + " player on the server."));
            return true;
        }
        gameManager.setGameState(GameState.COOLDOWN);

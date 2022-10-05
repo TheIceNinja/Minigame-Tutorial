@@ -3,7 +3,6 @@ package net.theiceninja.game.listeners;
 import net.theiceninja.game.manager.GameManager;
 import net.theiceninja.game.manager.GameState;
 import net.theiceninja.game.utils.ColorUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -17,8 +16,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import java.util.UUID;
 
 public class Events implements Listener {
 
@@ -79,20 +76,23 @@ public class Events implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player p = event.getPlayer();
         event.setQuitMessage(ColorUtils.color("&7[&4-&7] &c" + p.getDisplayName()));
-        if (gameManager.getGameState() == GameState.ACTIVE) {
+        if (gameManager.getGameState() == GameState.ACTIVE || gameManager.getGameState() == GameState.COOLDOWN) {
             if (gameManager.getAlivePlayers().isEmpty()) {
                 gameManager.setGameState(GameState.OFFLINE);
             }
-            if (gameManager.getAlivePlayers().contains(p.getUniqueId())) {
+
                 gameManager.addSpectatorPlayers(p);
-            }
-            if (gameManager.getAlivePlayers().size() == 1) {
+            /*
+                        if (gameManager.getAlivePlayers().size() <= 1) {
                 for (UUID playerUUID : gameManager.getAlivePlayers()) {
-                    Player player = Bukkit.getPlayer(playerUUID);
-                    gameManager.sendGameMessage("&cThe winner is " + player.getDisplayName());
+                    @Nullable Player player = Bukkit.getPlayer(playerUUID);
+                    if (player == null) continue;
+                    gameManager.sendGameMessage("&cThe winner is " + Objects.requireNonNull(player).getDisplayName());
                     gameManager.setGameState(GameState.OFFLINE);
                 }
             }
+             */
+
         }
     }
 
@@ -100,8 +100,9 @@ public class Events implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
         event.setJoinMessage(ColorUtils.color("&7[&2+&7] &a" + p.getDisplayName()));
+        p.getInventory().clear();
         p.setGameMode(GameMode.SURVIVAL);
-        if (gameManager.getGameState() == GameState.ACTIVE) {
+        if (gameManager.getGameState() == GameState.ACTIVE || gameManager.getGameState() == GameState.COOLDOWN) {
             gameManager.addSpectatorPlayers(p);
             p.setGameMode(GameMode.SPECTATOR);
         }
@@ -112,19 +113,22 @@ public class Events implements Listener {
         Player killer = event.getPlayer().getKiller();
         Player p = event.getPlayer();
         if (gameManager.getGameState() == GameState.ACTIVE) {
-            if (gameManager.getAlivePlayers().contains(p.getUniqueId())) {
                 gameManager.addSpectatorPlayers(event.getPlayer());
-            }
-            if (gameManager.getAlivePlayers().size() == 1 && killer != null) {
+            /*
+                        if (gameManager.getAlivePlayers().size() <= 1 && killer != null) {
                 gameManager.sendGameMessage("&cThe winner is " + killer.getDisplayName());
                 gameManager.setGameState(GameState.OFFLINE);
-            } else if (gameManager.getAlivePlayers().size() == 1 && killer == null) {
+            } else if (gameManager.getAlivePlayers().size() <= 1 && killer == null) {
                 for (UUID playerUUID : gameManager.getAlivePlayers()) {
-                    Player player = Bukkit.getPlayer(playerUUID);
-                    gameManager.sendGameMessage("&cThe winner is " + player.getDisplayName());
+                    @Nullable Player player = Bukkit.getPlayer(playerUUID);
+                    if (player == null) return;
+                    gameManager.sendGameMessage("&cThe winner is " + Objects.requireNonNull(player).getDisplayName());
                     gameManager.setGameState(GameState.OFFLINE);
                 }
+            } else if (gameManager.getAlivePlayers().isEmpty()) {
+                gameManager.setGameState(GameState.OFFLINE);
             }
+             */
             event.setDeathMessage(ColorUtils.color("&c" + p.getDisplayName() + " died!"));
             event.setDeathSound(Sound.ENTITY_LIGHTNING_BOLT_THUNDER);
         }
