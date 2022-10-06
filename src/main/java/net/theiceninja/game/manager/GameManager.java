@@ -58,22 +58,22 @@ public class GameManager {
         player.setGameMode(GameMode.SURVIVAL);
     }
     public void addSpectatorPlayers(Player player) {
+        spectatorPlayers.add(player.getUniqueId());
+        player.setGameMode(GameMode.SPECTATOR);
+        player.getInventory().clear();
         if (!alivePlayers.contains(player.getUniqueId())) return;
             alivePlayers.remove(player.getUniqueId());
-            spectatorPlayers.add(player.getUniqueId());
-            player.setGameMode(GameMode.SPECTATOR);
-            player.getInventory().clear();
             player.sendMessage(ColorUtils.color("&cYou died!"));
             if (getGameState() == GameState.ACTIVE && getAlivePlayers().size() == 1) {
-                for (Player player1 : Bukkit.getOnlinePlayers()) {
-                    if (getAlivePlayers().contains(player1.getUniqueId())) {
-                        if (!player1.isOnline() || player1 == null) return;
-                        sendGameMessage("&cThe winner is " + player1.getDisplayName());
-                        setGameState(GameState.OFFLINE);
-                    }
-                }
-            }
-    }
+            for (Player lastPlayer : Bukkit.getOnlinePlayers()) {
+            if (getAlivePlayers().contains(lastPlayer.getUniqueId())) {
+            if (!lastPlayer.isOnline() || lastPlayer == null) return;
+                   sendGameMessage("&cThe winner is &e" + lastPlayer.getDisplayName());
+                   setGameState(GameState.OFFLINE);
+           }
+        }
+     }
+ }
     public void stopGame() {
         sendGameMessage("&4&l-> &c&lTHE GAME IS NOW ENDING &4&l<-");
         if (this.cooldownTask != null) cooldownTask.cancel();

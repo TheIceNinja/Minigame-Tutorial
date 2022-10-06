@@ -20,8 +20,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class Events implements Listener {
 
     private final GameManager gameManager;
-
-
     public Events(GameManager gameManager) {
         this.gameManager = gameManager;
     }
@@ -69,7 +67,6 @@ public class Events implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
         if (gameManager.getGameState().equals(GameState.OFFLINE) || gameManager.getGameState() == GameState.COOLDOWN)
             event.setCancelled(true);
-
     }
 
     @EventHandler
@@ -81,7 +78,6 @@ public class Events implements Listener {
                 gameManager.setGameState(GameState.OFFLINE);
             }
                 gameManager.addSpectatorPlayers(p);
-
         }
     }
 
@@ -91,20 +87,17 @@ public class Events implements Listener {
         event.setJoinMessage(ColorUtils.color("&7[&2+&7] &a" + p.getDisplayName()));
         p.getInventory().clear();
         p.setGameMode(GameMode.SURVIVAL);
-        if (gameManager.getGameState() == GameState.ACTIVE || gameManager.getGameState() == GameState.COOLDOWN) {
+        if (gameManager.getGameState() == GameState.ACTIVE || gameManager.getGameState() == GameState.COOLDOWN)
             gameManager.addSpectatorPlayers(p);
-            p.setGameMode(GameMode.SPECTATOR);
-        }
     }
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        Player killer = event.getPlayer().getKiller();
         Player p = event.getPlayer();
         if (gameManager.getGameState() == GameState.ACTIVE) {
-                gameManager.addSpectatorPlayers(event.getPlayer());
-            event.setDeathMessage(ColorUtils.color("&c" + p.getDisplayName() + " died!"));
+            event.setDeathMessage(ColorUtils.color("&e" + p.getDisplayName() + " &cdied!"));
             event.setDeathSound(Sound.ENTITY_LIGHTNING_BOLT_THUNDER);
+            gameManager.addSpectatorPlayers(p);
         }
     }
 }

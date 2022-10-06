@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerManager {
-
     public void giveKit() {
         ItemStack ironSword = ItemBuilder.createItem(Material.IRON_SWORD, 1, "&cIron Sword");
         for (Player player : Bukkit.getOnlinePlayers()) {

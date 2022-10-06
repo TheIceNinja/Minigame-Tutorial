@@ -22,6 +22,5 @@ public class CooldownTask extends BukkitRunnable {
             return;
         }
         gameManager.sendActionBar("&cTime left until game starts: &e" + timeLeft);
-
     }
 }

@@ -10,12 +10,12 @@ public class ItemBuilder {
 
     /**
      *
-     * @param material the Material
-     * @param amount of item
+     * @param material the Material of the Item
+     * @param amount amount of item
      * @param displayName name of the Item
      * @param lore of the Item
-     * @param customModelData customModelData
-     * @return the itemstack
+     * @param customModelData customModelData for textures
+     * @return the ItemStack
      */
 
     public static ItemStack createItem(Material material, int amount, String displayName, List<String> lore, int customModelData) {

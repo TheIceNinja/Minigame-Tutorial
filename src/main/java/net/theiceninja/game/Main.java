@@ -6,7 +6,6 @@ import net.theiceninja.game.listeners.Events;
 import net.theiceninja.game.manager.GameManager;
 import net.theiceninja.game.manager.GameState;
 import net.theiceninja.game.manager.PlayerManager;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -17,18 +16,13 @@ public class Main extends JavaPlugin {
    public static Main plugin;
     @Override
     public void onEnable() {
-        // Plugin startup logic
         plugin = this;
         gameManager.setGameState(GameState.OFFLINE);
         getCommand("startgame").setExecutor(new StartCommand(gameManager));
         getCommand("stopgame").setExecutor(new StopCommand(gameManager));
         getServer().getPluginManager().registerEvents(new Events(gameManager), this);
-
-
     }
 
     @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
+    public void onDisable() {}
 }

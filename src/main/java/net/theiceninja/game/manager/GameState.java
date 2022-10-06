@@ -5,6 +5,4 @@ public enum GameState {
     OFFLINE,
     COOLDOWN,
     ACTIVE
-
-
 }
