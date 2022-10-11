@@ -34,26 +34,6 @@ public class Events implements Listener {
             event.setCancelled(true);
         }
     }
-    @EventHandler
-    public void onBuild(BlockBreakEvent event) {
-        if (gameManager.getGameState() == GameState.OFFLINE) {
-            if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
-                event.setCancelled(false);
-                return;
-            }
-            event.setCancelled(true);
-        }
-    }
-    @EventHandler
-    public void onBuild(PlayerDropItemEvent event) {
-        if (gameManager.getGameState() == GameState.OFFLINE) {
-            if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
-                event.setCancelled(false);
-                return;
-            }
-            event.setCancelled(true);
-        }
-    }
 
     @EventHandler
     public void onPVP(EntityDamageByEntityEvent event) {

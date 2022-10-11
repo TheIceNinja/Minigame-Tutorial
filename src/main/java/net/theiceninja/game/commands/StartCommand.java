@@ -11,7 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class StartCommand implements CommandExecutor {
-
     private final GameManager gameManager;
 
     public StartCommand(GameManager gameManager) {
@@ -39,7 +38,7 @@ public class StartCommand implements CommandExecutor {
            player.sendMessage(ColorUtils.color("&cYou cant start the game while there is only " + Bukkit.getOnlinePlayers().size() + " player|s on the server."));
            return true;
        }
-       gameManager.setGameState(GameState.COOLDOWN);
+        gameManager.setGameState(GameState.COOLDOWN);
 
 
         return true;

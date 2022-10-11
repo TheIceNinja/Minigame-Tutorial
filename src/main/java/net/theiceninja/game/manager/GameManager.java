@@ -29,7 +29,6 @@ public class GameManager {
     public GameState getGameState() {
         return gameState;
     }
-
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
         switch (gameState) {
