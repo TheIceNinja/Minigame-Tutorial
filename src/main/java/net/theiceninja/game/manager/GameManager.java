@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static net.theiceninja.game.Main.plugin;
+import static net.theiceninja.game.GamePlugin.plugin;
 
 public class GameManager {
 
@@ -23,14 +23,11 @@ public class GameManager {
     private List<UUID> alivePlayers = new ArrayList<>();
     private List<UUID> spectatorPlayers = new ArrayList<>();
     private GameState gameState;
-
     private CooldownTask cooldownTask;
 
-    public GameState getGameState() {
-        return gameState;
-    }
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+
         switch (gameState) {
             case OFFLINE:
                 stopGame();
@@ -56,6 +53,7 @@ public class GameManager {
         alivePlayers.add(player.getUniqueId());
         player.setGameMode(GameMode.SURVIVAL);
     }
+
     public void addSpectatorPlayers(Player player) {
         spectatorPlayers.add(player.getUniqueId());
         player.setGameMode(GameMode.SPECTATOR);
@@ -73,9 +71,11 @@ public class GameManager {
         }
      }
  }
+
     public void stopGame() {
         sendGameMessage("&4&l-> &c&lTHE GAME IS NOW ENDING &4&l<-");
         if (this.cooldownTask != null) cooldownTask.cancel();
+
         for (Player players : Bukkit.getOnlinePlayers()) {
             players.setGameMode(GameMode.SURVIVAL);
             players.getInventory().clear();
@@ -83,6 +83,7 @@ public class GameManager {
              alivePlayers.clear();
              spectatorPlayers.clear();
     }
+
     public void sendGameMessage(String str) {
         Bukkit.broadcastMessage(ColorUtils.color(str));
     }
@@ -103,5 +104,9 @@ public class GameManager {
 
     public PlayerManager getPlayerManager() {
         return playerManager;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 }

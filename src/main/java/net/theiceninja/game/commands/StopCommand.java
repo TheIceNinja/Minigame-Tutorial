@@ -29,10 +29,12 @@ public class StopCommand implements CommandExecutor {
             player.sendMessage(MessageUtils.NO_PERMISSION);
             return true;
         }
+
         if (gameManager.getGameState() != GameState.ACTIVE) {
             player.sendMessage(ColorUtils.color("&cYou cant end the game because there is no game online"));
             return true;
         }
+
         gameManager.setGameState(GameState.OFFLINE);
 
         return true;

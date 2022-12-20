@@ -30,16 +30,18 @@ public class StartCommand implements CommandExecutor {
            player.sendMessage(MessageUtils.NO_PERMISSION);
            return true;
        }
+
        if (gameManager.getGameState() == GameState.COOLDOWN || gameManager.getGameState() == GameState.ACTIVE) {
            player.sendMessage(ColorUtils.color("&cThe game already started, you cant start another one."));
            return true;
        }
+
        if (Bukkit.getOnlinePlayers().size() <= 1) {
            player.sendMessage(ColorUtils.color("&cYou cant start the game while there is only " + Bukkit.getOnlinePlayers().size() + " player|s on the server."));
            return true;
        }
-        gameManager.setGameState(GameState.COOLDOWN);
 
+        gameManager.setGameState(GameState.COOLDOWN);
 
         return true;
     }

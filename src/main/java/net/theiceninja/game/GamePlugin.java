@@ -8,15 +8,17 @@ import net.theiceninja.game.manager.GameState;
 import net.theiceninja.game.manager.PlayerManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin {
+public class GamePlugin extends JavaPlugin {
 
-    private PlayerManager playerManager = new PlayerManager();
-   private GameManager gameManager = new GameManager(playerManager);
+    private PlayerManager playerManager;
+   private GameManager gameManager;
 
-   public static Main plugin;
+   public static GamePlugin plugin;
     @Override
     public void onEnable() {
         plugin = this;
+        this.playerManager = new PlayerManager();
+        this.gameManager = new GameManager(playerManager);
         gameManager.setGameState(GameState.OFFLINE);
         getCommand("startgame").setExecutor(new StartCommand(gameManager));
         getCommand("stopgame").setExecutor(new StopCommand(gameManager));

@@ -34,6 +34,7 @@ public class Events implements Listener {
             event.setCancelled(true);
         }
     }
+
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         if (gameManager.getGameState() == GameState.OFFLINE) {
@@ -44,6 +45,7 @@ public class Events implements Listener {
             event.setCancelled(true);
         }
     }
+
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
         if (gameManager.getGameState() == GameState.OFFLINE) {

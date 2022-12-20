@@ -1,6 +1,6 @@
 name: Game
 version: '${project.version}'
-main: net.theiceninja.game.Main
+main: net.theiceninja.game.GamePlugin
 api-version: 1.17
 authors: [ TheIceNinja ]
 description: simple minigame tutorial for github
